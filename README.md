@@ -5,7 +5,9 @@ An end-to-end data analytics project featuring ETL pipeline with data validation
 ![Python](https://img.shields.io/badge/Python-3.9+-blue?style=for-the-badge&logo=python)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue?style=for-the-badge&logo=postgresql)
 ![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-red?style=for-the-badge&logo=streamlit)
+## 🌐 Live Demo
 
+👉 **[View Live Dashboard](https://retail-analytics-dashboard-xd7epno6dywzpzn4lezqjv.streamlit.app/)**
 ---
 
 ## 🎯 Business Questions Answered
@@ -245,5 +247,3 @@ Northeastern University
 - LinkedIn: [Aaditya Krishna](https://www.linkedin.com/in/aaditya-krishna/)
 
 ---
-
-*Built as part of Data Analytics portfolio for Co-op applications*
