@@ -23,9 +23,15 @@ st.set_page_config(
 # DATABASE CONNECTION
 # =============================================
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 @st.cache_resource
 def get_engine():
-    return create_engine("postgresql://postgres:postgres123@localhost:5432/retaildb")
+    DATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://postgres:postgres123@localhost:5432/retaildb')
+    return create_engine(DATABASE_URL)
 
 @st.cache_data(ttl=600)
 def load_data(query):
