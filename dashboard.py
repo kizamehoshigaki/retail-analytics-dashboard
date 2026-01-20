@@ -241,6 +241,78 @@ def main():
     )
     fig.update_layout(height=500)
     st.plotly_chart(fig, use_container_width=True)
+
+    # =========================================
+    # DISCOUNT IMPACT ANALYSIS (A/B STYLE)
+    # =========================================
+    
+    st.subheader("💰 Discount Impact Analysis")
+    
+    discount_data = load_data("SELECT * FROM vw_discount_impact")
+    
+    col_d1, col_d2 = st.columns(2)
+    
+    with col_d1:
+        fig = px.bar(
+            discount_data,
+            x='discount_bucket',
+            y='profit_margin_pct',
+            color='discount_bucket',
+            title='Profit Margin by Discount Level'
+        )
+        fig.update_layout(
+            xaxis_title="Discount Level",
+            yaxis_title="Profit Margin (%)",
+            showlegend=False
+        )
+        st.plotly_chart(fig, use_container_width=True)
+    
+    with col_d2:
+        fig = px.bar(
+            discount_data,
+            x='discount_bucket',
+            y='total_orders',
+            color='discount_bucket',
+            title='Order Volume by Discount Level'
+        )
+        fig.update_layout(
+            xaxis_title="Discount Level",
+            yaxis_title="Number of Orders",
+            showlegend=False
+        )
+        st.plotly_chart(fig, use_container_width=True)
+    
+    st.info("💡 **Insight:** High discounts (>20%) lead to negative profit margins, while no-discount orders maintain healthy margins. Recommend limiting discounts to ≤10%.")
+    
+    st.markdown("---")
+    
+    # =========================================
+    # DATA FRESHNESS
+    # =========================================
+    
+    st.subheader("🕐 Data Freshness")
+    
+    freshness = load_data("""
+        SELECT 
+            MAX(d.full_date) AS latest_order_date,
+            COUNT(*) AS total_records,
+            NOW() AS last_refreshed
+        FROM fact_orders f
+        JOIN dim_date d ON f.order_date_key = d.date_key
+    """)
+    
+    col_f1, col_f2, col_f3 = st.columns(3)
+    
+    with col_f1:
+        st.metric("Latest Order Date", freshness['latest_order_date'].iloc[0].strftime('%Y-%m-%d'))
+    
+    with col_f2:
+        st.metric("Total Records", f"{freshness['total_records'].iloc[0]:,}")
+    
+    with col_f3:
+        st.metric("Dashboard Refreshed", freshness['last_refreshed'].iloc[0].strftime('%Y-%m-%d %H:%M'))
+    
+    st.markdown("---")
     
     # =========================================
     # FOOTER
