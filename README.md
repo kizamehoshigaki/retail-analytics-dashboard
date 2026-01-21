@@ -87,6 +87,7 @@ Total Orders        9,994           9,994           ✅
 Total Quantity      37,873          37,873          ✅
 ─────────────────────────────────────────────────────────
 Overall Reconciliation: PASSED ✅
+> **Note:** Small differences (~$0.77) are due to floating-point precision between Python and PostgreSQL. Reconciliation passes with tolerance < $1.
 ```
 
 ---
@@ -152,14 +153,14 @@ Overall Reconciliation: PASSED ✅
 
 ```
 retail-analytics-dashboard/
-├── Data/
-│   └── Superstore_data.csv      # Source data
-├── Source/
-│   ├── etl_pipeline.py          # ETL with validation & reconciliation
-│   └── dashboard.py             # Streamlit dashboard
-├── .env.example                 # Environment template
-├── requirements.txt             # Dependencies
+├── Superstore_data.csv      # Source data
+├── etl_pipeline.py          # ETL with validation & reconciliation
+├── dashboard.py             # Streamlit dashboard
+├── schema.sql               # Database schema + views
+├── .env.example             # Environment template
+├── requirements.txt         # Dependencies
 └── README.md
+```
 ```
 
 ---
